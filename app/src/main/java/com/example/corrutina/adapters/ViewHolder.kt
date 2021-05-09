@@ -10,6 +10,10 @@ class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private val binding = ItemDogBinding.bind(view)
 
     fun bind(image: String){
+        binding.shimmerViewContainer.startShimmerAnimation()
         Picasso.get().load(image).into(binding.ivDog)
+        binding.shimmerViewContainer.stopShimmerAnimation()
+        binding.shimmerViewContainer.visibility = View.GONE
+
     }
 }

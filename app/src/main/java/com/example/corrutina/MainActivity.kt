@@ -2,6 +2,7 @@ package com.example.corrutina
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import android.widget.Toast
@@ -52,11 +53,22 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener,
                 } else{
                     showError()
                 }
+                binding.shimmerViewContainer.stopShimmerAnimation()
+                binding.shimmerViewContainer.visibility = View.GONE
                 hideKeyboard()
             }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.shimmerViewContainer.startShimmerAnimation()
+    }
+
+    override fun onPause() {
+        binding.shimmerViewContainer.stopShimmerAnimation()
+        super.onPause()
+    }
     private fun initRecyclerView(){
         adapter = DogAfdapter(dogImage)
         binding.rvDogs.layoutManager = LinearLayoutManager(this)
